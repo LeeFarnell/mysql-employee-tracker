@@ -18,12 +18,19 @@ class DB {
     return new Promise((resolve, reject) => {
       const onConnect = (err) => {
         if (err) reject(err);
-        console.log(`Connection to ${this.database} database was successful.`);
+        console.info(`Connection to ${this.database} was successful.`);
         resolve();
       };
 
       this.connection.connect(onConnect);
     });
+  }
+
+  end(message) {
+    this.connection.end();
+    console.info(
+      message || `The connection to ${this.database} has been closed.`
+    );
   }
 }
 
