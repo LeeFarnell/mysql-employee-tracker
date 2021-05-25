@@ -6,7 +6,7 @@ VALUES
 ("IT"),
 ("Sales"),
 ("Finance"),
-("Estates"),
+("Estates");
 
 INSERT INTO role (title, salary, department_id)
 VALUES 
@@ -22,21 +22,21 @@ VALUES
 ("Finance Support Officer", "25000", "4"),
 ("Finance Manager", "40000", "4"),
 ("Estates Administrator", "20000", "5"),
-("Estates Manager", "40000", "5"),
+("Estates Manager", "40000", "5");
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES 
 ("Bob", "Smith", "1", "2"),
 ("Alice", "Jones", "2", "3"),
-("Sarah", "Pope", "3", ""),
+("Sarah", "Pope", "3", "0"),
 ("David", "Williams", "4", "6"),
 ("Laura", "Kane", "5", "6"),
-("John", "Adams", "6", ""),
+("John", "Adams", "6", "0"),
 ("Amy", "Tennant", "7", "8"),
 ("Melody", "Pond", "8", "9"),
-("Linda", "Belcher", "9", ""),
+("Linda", "Belcher", "9", "0"),
 ("Terry", "Linn", "10", "11"),
-("Matthew", "Mason", "11", ""),
+("Matthew", "Mason", "11", "0"),
 ("Louis", "Green", "12", "13"),
-("Elizabeth", "McDonald", "13", ""),
+("Elizabeth", "McDonald", "13", "0");
 
