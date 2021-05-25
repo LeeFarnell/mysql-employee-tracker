@@ -1,21 +1,9 @@
-// const mysql = require("mysql");
+const DB = require("./db/DB");
 
-// const dbOptions = {
-//   host: "localhost",
-//   port: 3306,
-//   user: "root",
-//   password: "password",
-//   database: "employees_db",
-// };
+const init = async () => {
+  const db = new DB("employees_db");
 
-// const connection = mysql.createConnection(dbOptions);
+  await db.start();
+};
 
-// const onConnect = (err) => {
-//   if (err) {
-//     throw err;
-//   } else {
-//     console.log(`connected to database`);
-//   }
-// };
-
-// connection.connect(onConnect);
+init();

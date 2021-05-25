@@ -13,14 +13,18 @@ class DB {
     this.database = database;
     this.connection = mysql.createConnection(dbOptions);
   }
+
+  start() {
+    return new Promise((resolve, reject) => {
+      const onConnect = (err) => {
+        if (err) reject(err);
+        console.log(`Connection to ${this.database} database was successful.`);
+        resolve();
+      };
+
+      this.connection.connect(onConnect);
+    });
+  }
 }
 
-const onConnect = (err) => {
-  if (err) {
-    throw err;
-  } else {
-    console.log(`connected to database`);
-  }
-};
-
-connection.connect(onConnect);
+module.exports = DB;
