@@ -1,4 +1,3 @@
-const { DataView } = require("webidl-conversions");
 const { baseChoices, roleChoices } = require("./baseQuestions");
 const DB = require("./db/DB");
 

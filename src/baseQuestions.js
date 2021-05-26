@@ -12,10 +12,6 @@ const baseChoices = async () => {
           name: "View All Employees",
         },
         {
-          value: "viewAllEmployeesByDepartment",
-          name: "View All Employees By Department",
-        },
-        {
           value: "viewAllEmployeesByRole",
           name: "View All Employees By Role",
         },
