@@ -1,4 +1,5 @@
-const choices = require("./baseQuestions");
+const { DataView } = require("webidl-conversions");
+const { baseChoices, roleChoices } = require("./baseQuestions");
 const DB = require("./db/DB");
 
 const init = async () => {
@@ -9,11 +10,34 @@ const init = async () => {
   let inProgress = true;
 
   while (inProgress) {
-    const answers = await choices();
+    const { action } = await baseChoices();
 
-    if (answers.actions === "exit") {
+    if (action === "exit") {
       inProgress = false;
       db.end();
+    } else {
+      if (action === "viewAllDepartments") {
+        const query = "SELECT * FROM department";
+        const data = await db.query(query);
+        console.table(data);
+      } else if (action === "viewAllEmployees") {
+        const query = "SELECT * FROM employee";
+        const data = await db.query(query);
+        console.table(data);
+      } else if (action === "viewAllRoles") {
+        const query = "SELECT * FROM role";
+        const data = await db.query(query);
+        console.table(data);
+      } else if (action === "viewAllEmployeesByRole") {
+        const { id } = await roleChoices(db);
+        const query = 'SELECT * FROM ?? WHERE ??="?"';
+        const data = await db.parameterisedQuery(query, [
+          "employee",
+          "role_id",
+          id,
+        ]);
+        console.table(data);
+      }
     }
   }
 };

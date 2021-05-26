@@ -1,11 +1,11 @@
 const getAnswers = require("./getAnswers");
 
-const choices = async () => {
-  const questions = [
+const baseChoices = async () => {
+  const baseQuestions = [
     {
       type: "list",
       message: "What would you like to do?",
-      name: "actions",
+      name: "action",
       choices: [
         {
           value: "viewAllEmployees",
@@ -75,9 +75,32 @@ const choices = async () => {
     },
   ];
 
-  const answers = await getAnswers(questions);
+  const answers = await getAnswers(baseQuestions);
 
   return answers;
 };
 
-module.exports = choices;
+const roleChoices = async (db) => {
+  const query = "SELECT * FROM role";
+  const roles = await db.query(query);
+
+  const choices = roles.map((role) => {
+    return {
+      value: role.id,
+      name: role.title,
+    };
+  });
+
+  const question = {
+    type: "list",
+    message: "Please pick a role:",
+    name: "id",
+    choices,
+  };
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
+module.exports = { baseChoices, roleChoices };

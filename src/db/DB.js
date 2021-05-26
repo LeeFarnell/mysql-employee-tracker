@@ -32,6 +32,38 @@ class DB {
       message || `The connection to ${this.database} has been closed.`
     );
   }
+
+  query(sqlQuery) {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve(rows);
+      };
+
+      this.connection.query(sqlQuery, handleQuery);
+    });
+  }
+
+  parameterisedQuery(sqlQuery, args, info = false) {
+    return new Promise((resolve, reject) => {
+      const handleQuery = (err, rows) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve(rows);
+      };
+
+      const query = this.connection.query(sqlQuery, args, handleQuery);
+
+      if (info) {
+        console.log(query.sql);
+      }
+    });
+  }
 }
 
 module.exports = DB;
