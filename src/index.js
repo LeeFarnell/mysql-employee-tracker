@@ -7,6 +7,7 @@ const {
   deleteEmployees,
   deleteRoles,
   deleteDepartments,
+  updateEmployeeRole,
 } = require("./baseQuestions");
 const DB = require("./db/DB");
 
@@ -95,6 +96,17 @@ const init = async () => {
         const query = 'DELETE FROM ?? WHERE ??="?"';
         const data = await db.parameterisedQuery(query, [
           "department",
+          "id",
+          id,
+        ]);
+        console.table(data);
+      } else if (action === "updateEmployeeRole") {
+        const { role, id } = await updateEmployeeRole(db);
+        const query = "UPDATE ?? SET ??=? WHERE ??=?";
+        const data = await db.parameterisedQuery(query, [
+          "employee",
+          "role_id",
+          role,
           "id",
           id,
         ]);
