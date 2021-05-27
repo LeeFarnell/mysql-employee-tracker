@@ -53,11 +53,11 @@ const baseChoices = async () => {
         },
         {
           value: "addDepartment",
-          name: "Add Departments",
+          name: "Add Department",
         },
         {
           value: "removeDepartment",
-          name: "Remove Departments",
+          name: "Remove Department",
         },
         {
           value: "viewBudget",
@@ -161,10 +161,34 @@ const addNewDepartment = async () => {
   return answers;
 };
 
+const deleteEmployees = async (db) => {
+  const query = "SELECT * FROM employee";
+  const employees = await db.query(query);
+
+  const choices = employees.map((employee) => {
+    return {
+      value: employee.id,
+      name: employee.first_name && employee.last_name,
+    };
+  });
+
+  const question = {
+    type: "list",
+    message: "Please select an employee to delete:",
+    name: "id",
+    choices,
+  };
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
 module.exports = {
   baseChoices,
   roleChoices,
   addNewEmployee,
   addNewRole,
   addNewDepartment,
+  deleteEmployees,
 };
