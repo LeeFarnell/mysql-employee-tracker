@@ -271,6 +271,47 @@ const updateEmployeeRole = async (db) => {
   return answers;
 };
 
+const updateEmployeeManager = async (db) => {
+  const employeeQuery = "SELECT * FROM employee";
+  const employees = await db.query(employeeQuery);
+
+  const employeeChoices = employees.map((employee) => {
+    return {
+      value: employee.id,
+      name: `${employee.first_name} ${employee.last_name}`,
+    };
+  });
+
+  const managerQuery = "SELECT * FROM employee";
+  const managers = await db.query(managerQuery);
+
+  const managerChoices = managers.map((manager) => {
+    return {
+      value: manager.id,
+      name: `${manager.first_name} ${manager.last_name}`,
+    };
+  });
+
+  const question = [
+    {
+      type: "list",
+      message: "Please select an employee to update their manager:",
+      name: "id",
+      choices: employeeChoices,
+    },
+    {
+      type: "list",
+      message: "Please select this employees new manager:",
+      name: "manager",
+      choices: managerChoices,
+    },
+  ];
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
 module.exports = {
   baseChoices,
   roleChoices,
@@ -281,4 +322,5 @@ module.exports = {
   deleteRoles,
   deleteDepartments,
   updateEmployeeRole,
+  updateEmployeeManager,
 };
