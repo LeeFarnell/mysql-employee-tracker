@@ -168,7 +168,7 @@ const deleteEmployees = async (db) => {
   const choices = employees.map((employee) => {
     return {
       value: employee.id,
-      name: employee.first_name,
+      name: `${employee.first_name} ${employee.last_name}`,
     };
   });
 

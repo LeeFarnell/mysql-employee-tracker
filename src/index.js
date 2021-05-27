@@ -10,6 +10,7 @@ const {
   updateEmployeeRole,
   updateEmployeeManager,
 } = require("./baseQuestions");
+
 const DB = require("./db/DB");
 
 const init = async () => {
@@ -129,5 +130,3 @@ const init = async () => {
 };
 
 init();
-
-// Look at Week 12, Day 02, Lesson 8 for inquirer settings.
