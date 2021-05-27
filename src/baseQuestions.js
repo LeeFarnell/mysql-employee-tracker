@@ -168,13 +168,36 @@ const deleteEmployees = async (db) => {
   const choices = employees.map((employee) => {
     return {
       value: employee.id,
-      name: employee.first_name && employee.last_name,
+      name: employee.first_name,
     };
   });
 
   const question = {
     type: "list",
     message: "Please select an employee to delete:",
+    name: "id",
+    choices,
+  };
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
+const deleteRoles = async (db) => {
+  const query = "SELECT * FROM role";
+  const roles = await db.query(query);
+
+  const choices = roles.map((role) => {
+    return {
+      value: role.id,
+      name: role.title,
+    };
+  });
+
+  const question = {
+    type: "list",
+    message: "Please select a role to delete:",
     name: "id",
     choices,
   };
@@ -191,4 +214,5 @@ module.exports = {
   addNewRole,
   addNewDepartment,
   deleteEmployees,
+  deleteRoles,
 };
