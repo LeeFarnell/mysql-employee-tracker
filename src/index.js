@@ -1,4 +1,4 @@
-const { baseChoices, roleChoices } = require("./baseQuestions");
+const { baseChoices, roleChoices, addNewEmployee } = require("./baseQuestions");
 const DB = require("./db/DB");
 
 const init = async () => {
@@ -34,6 +34,19 @@ const init = async () => {
           "employee",
           "role_id",
           id,
+        ]);
+        console.table(data);
+      } else if (action === "addEmployee") {
+        const { firstName, lastName, roleID } = await addNewEmployee(db);
+        const query = "INSERT INTO ?? (??, ??, ??) VALUES (?, ?, ?)";
+        const data = await db.parameterisedQuery(query, [
+          "employee",
+          "first_name",
+          "last_name",
+          "role_id",
+          firstName,
+          lastName,
+          roleID,
         ]);
         console.table(data);
       }
