@@ -147,4 +147,24 @@ const addNewRole = async () => {
   return answers;
 };
 
-module.exports = { baseChoices, roleChoices, addNewEmployee, addNewRole };
+const addNewDepartment = async () => {
+  const questions = [
+    {
+      type: "input",
+      message: "Enter the new department:",
+      name: "deptName",
+    },
+  ];
+
+  const answers = await getAnswers(questions);
+
+  return answers;
+};
+
+module.exports = {
+  baseChoices,
+  roleChoices,
+  addNewEmployee,
+  addNewRole,
+  addNewDepartment,
+};

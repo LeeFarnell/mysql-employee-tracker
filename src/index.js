@@ -3,6 +3,7 @@ const {
   roleChoices,
   addNewEmployee,
   addNewRole,
+  addNewDepartment,
 } = require("./baseQuestions");
 const DB = require("./db/DB");
 
@@ -65,6 +66,15 @@ const init = async () => {
           roleTitle,
           salary,
           deptID,
+        ]);
+        console.table(data);
+      } else if (action === "addDepartment") {
+        const { deptName } = await addNewDepartment(db);
+        const query = "INSERT INTO ?? (??) VALUES (?)";
+        const data = await db.parameterisedQuery(query, [
+          "department",
+          "name",
+          deptName,
         ]);
         console.table(data);
       }
