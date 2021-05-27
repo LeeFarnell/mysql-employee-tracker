@@ -207,6 +207,29 @@ const deleteRoles = async (db) => {
   return answers;
 };
 
+const deleteDepartments = async (db) => {
+  const query = "SELECT * FROM department";
+  const departments = await db.query(query);
+
+  const choices = departments.map((department) => {
+    return {
+      value: department.id,
+      name: department.name,
+    };
+  });
+
+  const question = {
+    type: "list",
+    message: "Please select a department to delete:",
+    name: "id",
+    choices,
+  };
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
 module.exports = {
   baseChoices,
   roleChoices,
@@ -215,4 +238,5 @@ module.exports = {
   addNewDepartment,
   deleteEmployees,
   deleteRoles,
+  deleteDepartments,
 };
