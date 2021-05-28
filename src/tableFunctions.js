@@ -24,10 +24,6 @@ const baseChoices = async () => {
           name: "Add an Employee",
         },
         {
-          value: "removeEmployee",
-          name: "Remove an Employee",
-        },
-        {
           value: "updateEmployee",
           name: "Update an Employee",
         },
@@ -38,6 +34,10 @@ const baseChoices = async () => {
         {
           value: "updateEmployeeManager",
           name: "Update Employee Manager",
+        },
+        {
+          value: "removeEmployee",
+          name: "Remove an Employee",
         },
         {
           value: "viewAllRoles",
