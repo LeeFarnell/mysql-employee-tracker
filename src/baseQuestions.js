@@ -16,6 +16,10 @@ const baseChoices = async () => {
           name: "View All Employees By Role",
         },
         {
+          value: "viewAllEmployeesByManager",
+          name: "View All Employees By Manager",
+        },
+        {
           value: "addEmployee",
           name: "Add an Employee",
         },
@@ -90,6 +94,29 @@ const roleChoices = async (db) => {
   const question = {
     type: "list",
     message: "Please pick a role:",
+    name: "id",
+    choices,
+  };
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
+const managerChoices = async (db) => {
+  const query = "SELECT * FROM employee";
+  const managers = await db.query(query);
+
+  const choices = managers.map((manager) => {
+    return {
+      value: manager.id,
+      name: `${manager.first_name} ${manager.last_name}`,
+    };
+  });
+
+  const question = {
+    type: "list",
+    message: "Please select a manager:",
     name: "id",
     choices,
   };
@@ -315,6 +342,7 @@ const updateEmployeeManager = async (db) => {
 module.exports = {
   baseChoices,
   roleChoices,
+  managerChoices,
   addNewEmployee,
   addNewRole,
   addNewDepartment,

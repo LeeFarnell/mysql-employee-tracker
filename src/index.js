@@ -1,6 +1,7 @@
 const {
   baseChoices,
   roleChoices,
+  managerChoices,
   addNewEmployee,
   addNewRole,
   addNewDepartment,
@@ -45,6 +46,15 @@ const init = async () => {
         const data = await db.parameterisedQuery(query, [
           "employee",
           "role_id",
+          id,
+        ]);
+        console.table(data);
+      } else if (action === "viewAllEmployeesByManager") {
+        const { id } = await managerChoices(db);
+        const query = 'SELECT * FROM ?? WHERE ??="?"';
+        const data = await db.parameterisedQuery(query, [
+          "employee",
+          "manager_id",
           id,
         ]);
         console.table(data);
