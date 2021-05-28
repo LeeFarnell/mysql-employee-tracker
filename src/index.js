@@ -10,6 +10,7 @@ const {
   deleteDepartments,
   updateEmployeeRole,
   updateEmployeeManager,
+  totalBudget,
 } = require("./baseQuestions");
 
 const DB = require("./db/DB");
@@ -134,9 +135,18 @@ const init = async () => {
           id,
         ]);
         console.table(data);
+      } else if (action === "viewBudget") {
+        const { id } = await totalBudget(db);
+        const query = "SELECT SUM(??) FROM ?? WHERE ??=?";
+        const data = await db.parameterisedQuery(query, [
+          "salary",
+          "role",
+          "department_id",
+          id,
+        ]);
+        console.table(data);
       }
     }
   }
 };
-
 init();

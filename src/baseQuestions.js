@@ -56,16 +56,16 @@ const baseChoices = async () => {
           name: "View All Departments",
         },
         {
+          value: "viewBudget",
+          name: "View Utilised Budget for a Department",
+        },
+        {
           value: "addDepartment",
           name: "Add Department",
         },
         {
           value: "removeDepartment",
           name: "Remove Department",
-        },
-        {
-          value: "viewBudget",
-          name: "View Utilised Budget for a Department",
         },
         {
           value: "exit",
@@ -339,6 +339,31 @@ const updateEmployeeManager = async (db) => {
   return answers;
 };
 
+const totalBudget = async (db) => {
+  const departmentQuery = "SELECT * FROM department";
+  const departments = await db.query(departmentQuery);
+
+  const choices = departments.map((department) => {
+    return {
+      value: department.id,
+      name: department.name,
+    };
+  });
+
+  const question = [
+    {
+      type: "list",
+      message: "Please select a department to view their budget:",
+      name: "id",
+      choices,
+    },
+  ];
+
+  const answers = await getAnswers(question);
+
+  return answers;
+};
+
 module.exports = {
   baseChoices,
   roleChoices,
@@ -351,4 +376,5 @@ module.exports = {
   deleteDepartments,
   updateEmployeeRole,
   updateEmployeeManager,
+  totalBudget,
 };
