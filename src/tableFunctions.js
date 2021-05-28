@@ -24,10 +24,6 @@ const baseChoices = async () => {
           name: "Add an Employee",
         },
         {
-          value: "updateEmployee",
-          name: "Update an Employee",
-        },
-        {
           value: "updateEmployeeRole",
           name: "Update Employee Role",
         },
@@ -263,7 +259,7 @@ const updateEmployeeRole = async (db) => {
 
   const employeeChoices = employees.map((employee) => {
     return {
-      value: employee.role_id,
+      value: employee.id,
       name: `${employee.first_name} ${employee.last_name}`,
     };
   });
