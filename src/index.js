@@ -11,7 +11,7 @@ const {
   updateEmployeeRole,
   updateEmployeeManager,
   totalBudget,
-} = require("./baseQuestions");
+} = require("./tableFunctions");
 
 const DB = require("./db/DB");
 
