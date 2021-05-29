@@ -181,7 +181,17 @@ const addNewEmployee = async (db) => {
   return answers;
 };
 
-const addNewRole = async () => {
+const addNewRole = async (db) => {
+  const query = "SELECT * FROM department";
+  const departments = await db.query(query);
+
+  const choices = departments.map((department) => {
+    return {
+      value: department.id,
+      name: department.name,
+    };
+  });
+
   const questions = [
     {
       type: "input",
@@ -194,9 +204,10 @@ const addNewRole = async () => {
       name: "salary",
     },
     {
-      type: "input",
-      message: "Enter the department ID for this role:",
+      type: "list",
+      message: "Please select the department for this role:",
       name: "deptID",
+      choices,
     },
   ];
 
