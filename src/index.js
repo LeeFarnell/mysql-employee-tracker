@@ -60,16 +60,18 @@ const init = async () => {
         ]);
         console.table(data);
       } else if (action === "addEmployee") {
-        const { firstName, lastName, roleID } = await addNewEmployee(db);
-        const query = "INSERT INTO ?? (??, ??, ??) VALUES (?, ?, ?)";
+        const { firstName, lastName, role, manager } = await addNewEmployee(db);
+        const query = "INSERT INTO ?? (??, ??, ??, ??) VALUES (?, ?, ?, ?)";
         const data = await db.parameterisedQuery(query, [
           "employee",
           "first_name",
           "last_name",
           "role_id",
+          "manager_id",
           firstName,
           lastName,
-          roleID,
+          role,
+          manager,
         ]);
         console.table(data);
       } else if (action === "addRole") {

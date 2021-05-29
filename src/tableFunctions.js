@@ -122,7 +122,27 @@ const managerChoices = async (db) => {
   return answers;
 };
 
-const addNewEmployee = async () => {
+const addNewEmployee = async (db) => {
+  const roleQuery = "SELECT * FROM role";
+  const roles = await db.query(roleQuery);
+
+  const roleChoices = roles.map((role) => {
+    return {
+      value: role.id,
+      name: role.title,
+    };
+  });
+
+  const managerQuery = "SELECT * FROM employee";
+  const managers = await db.query(managerQuery);
+
+  const managerChoices = managers.map((manager) => {
+    return {
+      value: manager.id,
+      name: `${manager.first_name} ${manager.last_name}`,
+    };
+  });
+
   const questions = [
     {
       type: "input",
@@ -135,9 +155,24 @@ const addNewEmployee = async () => {
       name: "lastName",
     },
     {
-      type: "input",
-      message: "Enter the new employees role ID:",
-      name: "roleID",
+      type: "list",
+      message: "Please select the new employees role:",
+      name: "role",
+      choices: roleChoices,
+    },
+    {
+      type: "confirm",
+      message: "Does this employee have a manager?",
+      name: "confirm",
+    },
+    {
+      type: "list",
+      message: "Please select the new employees manager ",
+      name: "manager",
+      choices: managerChoices,
+      when: (answers) => {
+        return answers.confirm;
+      },
     },
   ];
 
