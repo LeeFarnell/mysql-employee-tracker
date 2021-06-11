@@ -80,12 +80,10 @@ const roleChoices = async (db) => {
   const query = "SELECT * FROM role";
   const roles = await db.query(query);
 
-  const choices = roles.map((role) => {
-    return {
-      value: role.id,
-      name: role.title,
-    };
-  });
+  const choices = roles.map((role) => ({
+    value: role.id,
+    name: role.title,
+  }));
 
   const question = {
     type: "list",
@@ -103,12 +101,10 @@ const managerChoices = async (db) => {
   const query = "SELECT * FROM employee";
   const managers = await db.query(query);
 
-  const choices = managers.map((manager) => {
-    return {
-      value: manager.id,
-      name: `${manager.first_name} ${manager.last_name}`,
-    };
-  });
+  const choices = managers.map((manager) => ({
+    value: manager.id,
+    name: `${manager.first_name} ${manager.last_name}`,
+  }));
 
   const question = {
     type: "list",
@@ -126,22 +122,18 @@ const addNewEmployee = async (db) => {
   const roleQuery = "SELECT * FROM role";
   const roles = await db.query(roleQuery);
 
-  const roleChoices = roles.map((role) => {
-    return {
-      value: role.id,
-      name: role.title,
-    };
-  });
+  const roleChoices = roles.map((role) => ({
+    value: role.id,
+    name: role.title,
+  }));
 
   const managerQuery = "SELECT * FROM employee";
   const managers = await db.query(managerQuery);
 
-  const managerChoices = managers.map((manager) => {
-    return {
-      value: manager.id,
-      name: `${manager.first_name} ${manager.last_name}`,
-    };
-  });
+  const managerChoices = managers.map((manager) => ({
+    value: manager.id,
+    name: `${manager.first_name} ${manager.last_name}`,
+  }));
 
   const questions = [
     {
@@ -234,12 +226,10 @@ const deleteEmployees = async (db) => {
   const query = "SELECT * FROM employee";
   const employees = await db.query(query);
 
-  const choices = employees.map((employee) => {
-    return {
-      value: employee.id,
-      name: `${employee.first_name} ${employee.last_name}`,
-    };
-  });
+  const choices = employees.map((employee) => ({
+    value: employee.id,
+    name: `${employee.first_name} ${employee.last_name}`,
+  }));
 
   const question = {
     type: "list",
@@ -257,12 +247,10 @@ const deleteRoles = async (db) => {
   const query = "SELECT * FROM role";
   const roles = await db.query(query);
 
-  const choices = roles.map((role) => {
-    return {
-      value: role.id,
-      name: role.title,
-    };
-  });
+  const choices = roles.map((role) => ({
+    value: role.id,
+    name: role.title,
+  }));
 
   const question = {
     type: "list",
@@ -280,12 +268,10 @@ const deleteDepartments = async (db) => {
   const query = "SELECT * FROM department";
   const departments = await db.query(query);
 
-  const choices = departments.map((department) => {
-    return {
-      value: department.id,
-      name: department.name,
-    };
-  });
+  const choices = departments.map((department) => ({
+    value: department.id,
+    name: department.name,
+  }));
 
   const question = {
     type: "list",
@@ -303,22 +289,18 @@ const updateEmployeeRole = async (db) => {
   const employeeQuery = "SELECT * FROM employee";
   const employees = await db.query(employeeQuery);
 
-  const employeeChoices = employees.map((employee) => {
-    return {
-      value: employee.id,
-      name: `${employee.first_name} ${employee.last_name}`,
-    };
-  });
+  const employeeChoices = employees.map((employee) => ({
+    value: employee.id,
+    name: `${employee.first_name} ${employee.last_name}`,
+  }));
 
   const roleQuery = "SELECT * FROM role";
   const roles = await db.query(roleQuery);
 
-  const roleChoices = roles.map((role) => {
-    return {
-      value: role.id,
-      name: role.title,
-    };
-  });
+  const roleChoices = roles.map((role) => ({
+    value: role.id,
+    name: role.title,
+  }));
 
   const question = [
     {
@@ -344,12 +326,10 @@ const updateEmployeeManager = async (db) => {
   const employeeQuery = "SELECT * FROM employee";
   const employees = await db.query(employeeQuery);
 
-  const employeeChoices = employees.map((employee) => {
-    return {
-      value: employee.id,
-      name: `${employee.first_name} ${employee.last_name}`,
-    };
-  });
+  const employeeChoices = employees.map((employee) => ({
+    value: employee.id,
+    name: `${employee.first_name} ${employee.last_name}`,
+  }));
 
   const managerQuery = "SELECT * FROM employee";
   const managers = await db.query(managerQuery);
