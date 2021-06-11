@@ -33,15 +33,18 @@ const init = async () => {
         const query = "SELECT * FROM department";
         const data = await db.query(query);
         console.table(data);
-      } else if (action === "viewAllEmployees") {
+      }
+      if (action === "viewAllEmployees") {
         const query = "SELECT * FROM employee";
         const data = await db.query(query);
         console.table(data);
-      } else if (action === "viewAllRoles") {
+      }
+      if (action === "viewAllRoles") {
         const query = "SELECT * FROM role";
         const data = await db.query(query);
         console.table(data);
-      } else if (action === "viewAllEmployeesByRole") {
+      }
+      if (action === "viewAllEmployeesByRole") {
         const { id } = await roleChoices(db);
         const query = 'SELECT * FROM ?? WHERE ??="?"';
         const data = await db.parameterisedQuery(query, [
@@ -50,7 +53,8 @@ const init = async () => {
           id,
         ]);
         console.table(data);
-      } else if (action === "viewAllEmployeesByManager") {
+      }
+      if (action === "viewAllEmployeesByManager") {
         const { id } = await managerChoices(db);
         const query = 'SELECT * FROM ?? WHERE ??="?"';
         const data = await db.parameterisedQuery(query, [
@@ -59,7 +63,8 @@ const init = async () => {
           id,
         ]);
         console.table(data);
-      } else if (action === "addEmployee") {
+      }
+      if (action === "addEmployee") {
         const { firstName, lastName, role, manager } = await addNewEmployee(db);
         const query = "INSERT INTO ?? SET ?";
         const data = await db.parameterisedQuery(query, [
@@ -72,7 +77,8 @@ const init = async () => {
           },
         ]);
         console.table(data);
-      } else if (action === "addRole") {
+      }
+      if (action === "addRole") {
         const { roleTitle, salary, deptID } = await addNewRole(db);
         const query = "INSERT INTO ?? SET ?";
         const data = await db.parameterisedQuery(query, [
@@ -84,7 +90,8 @@ const init = async () => {
           },
         ]);
         console.table(data);
-      } else if (action === "addDepartment") {
+      }
+      if (action === "addDepartment") {
         const { deptName } = await addNewDepartment(db);
         const query = "INSERT INTO ?? SET ?";
         const data = await db.parameterisedQuery(query, [
@@ -94,19 +101,23 @@ const init = async () => {
           },
         ]);
         console.table(data);
-      } else if (action === "removeEmployee") {
+      }
+      if (action === "removeEmployee") {
         const { id } = await deleteEmployees(db);
         const query = 'DELETE FROM ?? WHERE ??="?"';
         await db.parameterisedQuery(query, ["employee", "id", id]);
-      } else if (action === "removeRole") {
+      }
+      if (action === "removeRole") {
         const { id } = await deleteRoles(db);
         const query = 'DELETE FROM ?? WHERE ??="?"';
         await db.parameterisedQuery(query, ["role", "id", id]);
-      } else if (action === "removeDepartment") {
+      }
+      if (action === "removeDepartment") {
         const { id } = await deleteDepartments(db);
         const query = 'DELETE FROM ?? WHERE ??="?"';
         await db.parameterisedQuery(query, ["department", "id", id]);
-      } else if (action === "updateEmployeeRole") {
+      }
+      if (action === "updateEmployeeRole") {
         const { role, id } = await updateEmployeeRole(db);
         const query = "UPDATE ?? SET ??=? WHERE ??=?";
         await db.parameterisedQuery(query, [
@@ -116,7 +127,8 @@ const init = async () => {
           "id",
           id,
         ]);
-      } else if (action === "updateEmployeeManager") {
+      }
+      if (action === "updateEmployeeManager") {
         const { manager, id } = await updateEmployeeManager(db);
         const query = "UPDATE ?? SET ??=? WHERE ??=?";
         await db.parameterisedQuery(query, [
@@ -126,7 +138,8 @@ const init = async () => {
           "id",
           id,
         ]);
-      } else if (action === "viewBudget") {
+      }
+      if (action === "viewBudget") {
         const { id } = await totalBudget(db);
         const query = "SELECT SUM(??) FROM ?? WHERE ??=?";
         const data = await db.parameterisedQuery(query, [
@@ -140,4 +153,5 @@ const init = async () => {
     }
   }
 };
+
 init();
