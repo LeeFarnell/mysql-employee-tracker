@@ -61,39 +61,37 @@ const init = async () => {
         console.table(data);
       } else if (action === "addEmployee") {
         const { firstName, lastName, role, manager } = await addNewEmployee(db);
-        const query = "INSERT INTO ?? (??, ??, ??, ??) VALUES (?, ?, ?, ?)";
+        const query = "INSERT INTO ?? SET ?";
         const data = await db.parameterisedQuery(query, [
           "employee",
-          "first_name",
-          "last_name",
-          "role_id",
-          "manager_id",
-          firstName,
-          lastName,
-          role,
-          manager,
+          {
+            first_name: firstName,
+            last_name: lastName,
+            role_id: role,
+            manager_id: manager,
+          },
         ]);
         console.table(data);
       } else if (action === "addRole") {
         const { roleTitle, salary, deptID } = await addNewRole(db);
-        const query = "INSERT INTO ?? (??, ??, ??) VALUES (?, ?, ?)";
+        const query = "INSERT INTO ?? SET ?";
         const data = await db.parameterisedQuery(query, [
           "role",
-          "title",
-          "salary",
-          "department_id",
-          roleTitle,
-          salary,
-          deptID,
+          {
+            title: roleTitle,
+            salary: salary,
+            department_id: deptID,
+          },
         ]);
         console.table(data);
       } else if (action === "addDepartment") {
         const { deptName } = await addNewDepartment(db);
-        const query = "INSERT INTO ?? (??) VALUES (?)";
+        const query = "INSERT INTO ?? SET ?";
         const data = await db.parameterisedQuery(query, [
           "department",
-          "name",
-          deptName,
+          {
+            name: deptName,
+          },
         ]);
         console.table(data);
       } else if (action === "removeEmployee") {
