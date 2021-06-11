@@ -76,20 +76,33 @@ const baseChoices = async () => {
   return answers;
 };
 
-const roleChoices = async (db) => {
-  const query = "SELECT * FROM role";
-  const roles = await db.query(query);
-
-  const choices = roles.map((role) => ({
+const generateRoleChoices = (roles) =>
+  roles.map((role) => ({
     value: role.id,
     name: role.title,
   }));
+
+const generateEmployeeChoices = (employees) =>
+  employees.map((employee) => ({
+    value: employee.id,
+    name: `${employee.first_name} ${employee.last_name}`,
+  }));
+
+const generateDepartmentChoices = (departments) =>
+  departments.map((department) => ({
+    value: department.id,
+    name: department.name,
+  }));
+
+const roleChoices = async (db) => {
+  const query = "SELECT * FROM role";
+  const roles = await db.query(query);
 
   const question = {
     type: "list",
     message: "Please pick a role:",
     name: "id",
-    choices,
+    choices: generateRoleChoices(roles),
   };
 
   const answers = await getAnswers(question);
@@ -101,16 +114,11 @@ const managerChoices = async (db) => {
   const query = "SELECT * FROM employee";
   const managers = await db.query(query);
 
-  const choices = managers.map((manager) => ({
-    value: manager.id,
-    name: `${manager.first_name} ${manager.last_name}`,
-  }));
-
   const question = {
     type: "list",
     message: "Please select a manager:",
     name: "id",
-    choices,
+    choices: generateEmployeeChoices(managers),
   };
 
   const answers = await getAnswers(question);
@@ -122,18 +130,8 @@ const addNewEmployee = async (db) => {
   const roleQuery = "SELECT * FROM role";
   const roles = await db.query(roleQuery);
 
-  const roleChoices = roles.map((role) => ({
-    value: role.id,
-    name: role.title,
-  }));
-
   const managerQuery = "SELECT * FROM employee";
   const managers = await db.query(managerQuery);
-
-  const managerChoices = managers.map((manager) => ({
-    value: manager.id,
-    name: `${manager.first_name} ${manager.last_name}`,
-  }));
 
   const questions = [
     {
@@ -150,7 +148,7 @@ const addNewEmployee = async (db) => {
       type: "list",
       message: "Please select the new employees role:",
       name: "role",
-      choices: roleChoices,
+      choices: generateRoleChoices(roles),
     },
     {
       type: "confirm",
@@ -161,7 +159,7 @@ const addNewEmployee = async (db) => {
       type: "list",
       message: "Please select the new employees manager ",
       name: "manager",
-      choices: managerChoices,
+      choices: generateEmployeeChoices(managers),
       when: (answers) => {
         return answers.confirm;
       },
@@ -176,13 +174,6 @@ const addNewEmployee = async (db) => {
 const addNewRole = async (db) => {
   const query = "SELECT * FROM department";
   const departments = await db.query(query);
-
-  const choices = departments.map((department) => {
-    return {
-      value: department.id,
-      name: department.name,
-    };
-  });
 
   const questions = [
     {
@@ -199,7 +190,7 @@ const addNewRole = async (db) => {
       type: "list",
       message: "Please select the department for this role:",
       name: "deptID",
-      choices,
+      choices: generateDepartmentChoices(departments),
     },
   ];
 
@@ -226,16 +217,11 @@ const deleteEmployees = async (db) => {
   const query = "SELECT * FROM employee";
   const employees = await db.query(query);
 
-  const choices = employees.map((employee) => ({
-    value: employee.id,
-    name: `${employee.first_name} ${employee.last_name}`,
-  }));
-
   const question = {
     type: "list",
     message: "Please select an employee to delete:",
     name: "id",
-    choices,
+    choices: generateEmployeeChoices(employees),
   };
 
   const answers = await getAnswers(question);
@@ -247,16 +233,11 @@ const deleteRoles = async (db) => {
   const query = "SELECT * FROM role";
   const roles = await db.query(query);
 
-  const choices = roles.map((role) => ({
-    value: role.id,
-    name: role.title,
-  }));
-
   const question = {
     type: "list",
     message: "Please select a role to delete:",
     name: "id",
-    choices,
+    choices: generateRoleChoices(roles),
   };
 
   const answers = await getAnswers(question);
@@ -268,16 +249,11 @@ const deleteDepartments = async (db) => {
   const query = "SELECT * FROM department";
   const departments = await db.query(query);
 
-  const choices = departments.map((department) => ({
-    value: department.id,
-    name: department.name,
-  }));
-
   const question = {
     type: "list",
     message: "Please select a department to delete:",
     name: "id",
-    choices,
+    choices: generateDepartmentChoices(departments),
   };
 
   const answers = await getAnswers(question);
@@ -289,31 +265,21 @@ const updateEmployeeRole = async (db) => {
   const employeeQuery = "SELECT * FROM employee";
   const employees = await db.query(employeeQuery);
 
-  const employeeChoices = employees.map((employee) => ({
-    value: employee.id,
-    name: `${employee.first_name} ${employee.last_name}`,
-  }));
-
   const roleQuery = "SELECT * FROM role";
   const roles = await db.query(roleQuery);
-
-  const roleChoices = roles.map((role) => ({
-    value: role.id,
-    name: role.title,
-  }));
 
   const question = [
     {
       type: "list",
       message: "Please select an employee to update their role:",
       name: "id",
-      choices: employeeChoices,
+      choices: generateEmployeeChoices(employees),
     },
     {
       type: "list",
       message: "Please select the new job role:",
       name: "role",
-      choices: roleChoices,
+      choices: generateRoleChoices(roles),
     },
   ];
 
@@ -326,33 +292,21 @@ const updateEmployeeManager = async (db) => {
   const employeeQuery = "SELECT * FROM employee";
   const employees = await db.query(employeeQuery);
 
-  const employeeChoices = employees.map((employee) => ({
-    value: employee.id,
-    name: `${employee.first_name} ${employee.last_name}`,
-  }));
-
   const managerQuery = "SELECT * FROM employee";
   const managers = await db.query(managerQuery);
-
-  const managerChoices = managers.map((manager) => {
-    return {
-      value: manager.id,
-      name: `${manager.first_name} ${manager.last_name}`,
-    };
-  });
 
   const question = [
     {
       type: "list",
       message: "Please select an employee to update their manager:",
       name: "id",
-      choices: employeeChoices,
+      choices: generateEmployeeChoices(employees),
     },
     {
       type: "list",
       message: "Please select this employees new manager:",
       name: "manager",
-      choices: managerChoices,
+      choices: generateEmployeeChoices(managers),
     },
   ];
 
@@ -365,19 +319,12 @@ const totalBudget = async (db) => {
   const departmentQuery = "SELECT * FROM department";
   const departments = await db.query(departmentQuery);
 
-  const choices = departments.map((department) => {
-    return {
-      value: department.id,
-      name: department.name,
-    };
-  });
-
   const question = [
     {
       type: "list",
       message: "Please select a department to view their budget:",
       name: "id",
-      choices,
+      choices: generateDepartmentChoices(departments),
     },
   ];
 
