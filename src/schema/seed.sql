@@ -24,19 +24,28 @@ VALUES
 ("Estates Administrator", "20000", "5"),
 ("Estates Manager", "40000", "5");
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id)
+INSERT INTO employee (first_name, last_name, role_id)
 VALUES 
-("Bob", "Smith", "1", "2"),
-("Alice", "Jones", "2", "3"),
-("Sarah", "Pope", "3", "0"),
-("David", "Williams", "4", "6"),
-("Laura", "Kane", "5", "6"),
-("John", "Adams", "6", "0"),
-("Amy", "Tennant", "7", "8"),
-("Melody", "Pond", "8", "9"),
-("Linda", "Belcher", "9", "0"),
-("Terry", "Linn", "10", "11"),
-("Matthew", "Mason", "11", "0"),
-("Louis", "Green", "12", "13"),
-("Elizabeth", "McDonald", "13", "0");
+("Bob", "Smith", "1"),
+("Alice", "Jones", "2"),
+("Sarah", "Pope", "3"),
+("David", "Williams", "4"),
+("Laura", "Kane", "5"),
+("John", "Adams", "6"),
+("Amy", "Tennant", "7"),
+("Melody", "Pond", "8"),
+("Linda", "Belcher", "9"),
+("Terry", "Linn", "10"),
+("Matthew", "Mason", "11"),
+("Louis", "Green", "12"),
+("Elizabeth", "McDonald", "13");
 
+UPDATE employee SET manager_id = 2 WHERE (id = 1);
+UPDATE employee SET manager_id = 3 WHERE (id = 2);
+UPDATE employee SET manager_id = 6 WHERE (id = 4);
+UPDATE employee SET manager_id = 6 WHERE (id = 5);
+UPDATE employee SET manager_id = 8 WHERE (id = 7);
+UPDATE employee SET manager_id = 9 WHERE (id = 8);
+UPDATE employee SET manager_id = 11 WHERE (id = 10);
+UPDATE employee SET manager_id = 13 WHERE (id = 12);
+UPDATE employee SET manager_id = 13 WHERE (id = 13);
